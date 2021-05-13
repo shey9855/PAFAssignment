@@ -38,8 +38,8 @@ public class Project {
 					}
 					
 					 // Prepare the html table to be displayed
-					 output = "<table border='1'><tr><th>Project ID</th>"
-					 + "<th>Project Code</th><th>Project Name</th>"
+					 output = "<table border='1'><tr><th>Project Code</th>"
+					 + "<th>Project Name</th>"
 					 + "<th>Description</th><th>Budget</th>"
 					 + "<th>Category</th>"
 					 + "<th>Update</th><th>Remove</th></tr>";
@@ -50,16 +50,15 @@ public class Project {
 					 
 					 while (rs.next())
 					 {
-						 String ProjectId = Integer.toString(rs.getInt("ProjectId"));
-						 String ProjectCode = rs.getString("ProjectCode");
+						 //String ProjectId = Integer.toString(rs.getInt("ProjectId"));
+						 String ProjectCode = Integer.toString(rs.getInt("ProjectCode"));
 						 String ProjectName = rs.getString("ProjectName");
 						 String Description = rs.getString("Description");
 						 String Budget = rs.getString("Budget"); 
 						 String Category = rs.getString("Category");
 	
 						// Add into the html table
-						 output += "<tr><td>" + ProjectId + "</td>";
-						 output += "<td>" + ProjectCode + "</td>";
+						 output += "<tr><td>" + ProjectCode + "</td>";					 
 						 output += "<td>" + ProjectName + "</td>";
 						 output += "<td>" + Description + "</td>";
 						 output += "<td>" + Budget + "</td>";
@@ -67,9 +66,9 @@ public class Project {
 						 
 					    // buttons
 					     output += "<td><input name='btnUpdate' type='button' value='Update' "
-						 + "class='btnUpdate btn btn-secondary' data-itemid='" + ProjectId + "'></td>"
+						 + "class='btnUpdate btn btn-secondary' data-itemid='" + ProjectCode + "'></td>"
 						 + "<td><input name='btnRemove' type='button' value='Remove' "
-						 + "class='btnRemove btn btn-danger' data-itemid='" + ProjectId + "'></td></tr>";
+						 + "class='btnRemove btn btn-danger' data-itemid='" + ProjectCode + "'></td></tr>";
 					  }
 					  con.close();
 					 // Complete the html table
@@ -94,15 +93,15 @@ public class Project {
 					 return "Error while connecting to the database for inserting.";
 				 }
 				 // create a prepared statement
-				 String query = " insert into projects(ProjectId,ProjectCode,ProjectName,Description,Budget,Category) values (?, ?, ?, ?, ?,?)";
+				 String query = " insert into projects(ProjectCode,ProjectName,Description,Budget,Category) values (?, ?, ?, ?,?)";
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
 				 // binding values
-				 preparedStmt.setInt(1, 0);
-				 preparedStmt.setString(2, ProjectCode);
-				 preparedStmt.setString(3, ProjectName);
-				 preparedStmt.setString(4, Description);
-				 preparedStmt.setString(5, Budget);
-				 preparedStmt.setString(6, Category);
+				 //preparedStmt.setInt(1, 0);
+				 preparedStmt.setString(1, ProjectCode);
+				 preparedStmt.setString(2, ProjectName);
+				 preparedStmt.setString(3, Description);
+				 preparedStmt.setString(4, Budget);
+				 preparedStmt.setString(5, Category);
 				 // execute the statement
 				 preparedStmt.execute();
 				 
@@ -119,7 +118,7 @@ public class Project {
 			 return output;
 	} 
 	
-	public String updateItem(String ProjectId, String ProjectCode, String ProjectName,String Description, String Budget, String Category)
+	public String updateItem(String ProjectCode, String ProjectName,String Description, String Budget, String Category)
 			 {
 			 	String output = "";
 			 	try
@@ -135,11 +134,13 @@ public class Project {
 			 			
 			 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			 // binding values
-						 preparedStmt.setString(1, ProjectCode);
+			 			 preparedStmt.setString(1, (ProjectCode));	
+						 
 						 preparedStmt.setString(2, ProjectName);
 						 preparedStmt.setString(3, Description);
 						 preparedStmt.setString(4, Budget);
-						 preparedStmt.setInt(5, Integer.parseInt(ProjectId)); 
+						 preparedStmt.setString(5, Category);
+						  
 			
 			 // execute the statement
 						 preparedStmt.execute();
@@ -155,7 +156,7 @@ public class Project {
 			 return output;
 		}
 	
-	public String deleteItem(String ProjectId)
+	public String deleteItem(String ProjectCode)
 	{
 			String output = "";
 			try
@@ -166,12 +167,14 @@ public class Project {
 				 return "Error while connecting to the database for deleting.";
 	        }
 				 
-	 // create a prepared statement
-				 String query = "delete from items where itemID=?";
+				 // create a prepared statement
+				 String query = "delete from projects where ProjectCode=?";
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
-	 // binding values
-				 preparedStmt.setInt(1, Integer.parseInt(ProjectId));
-	 // execute the statement
+				 
+				 // binding values
+				 preparedStmt.setInt(1, Integer.parseInt(ProjectCode));
+				 
+				 // execute the statement
 				 preparedStmt.execute();
 				 con.close();
 				 String newItems = readItems();

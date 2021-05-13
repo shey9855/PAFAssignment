@@ -6,6 +6,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="Views/bootstrap.min.css">
+<script src="Components/jquery-3.2.1.min.js"></script>
+<script src="Components/main.js"></script>
 </head>
 <body>
 
@@ -13,6 +16,7 @@
 			<h1>Project Management </h1>
 			
 			<form id="formItem" name="formItem">
+			
 			
 	 			Project code:
 	 			<input id="ProjectCode" name="ProjectCode" type="text"
@@ -39,8 +43,7 @@
 	 			<input id="btnSave" name="btnSave" type="button" value="Save"
 	 			class="btn btn-primary">
 	 			
-	 			<input type="hidden" id="ProjectId"
-	 			name="ProjectId" value="">
+	 			
 			</form>
 			
 			<div id="alertSuccess" class="alert alert-success"></div>
@@ -51,6 +54,7 @@
  <%
  		Project itemObj = new Project();
  		out.print(itemObj.readItems());
+ 		//out.print(itemObj.insertItem(ProjectCode, ProjectName, Description, Budget, Category));
  %>
 	</div>
 </div> </div> </div>

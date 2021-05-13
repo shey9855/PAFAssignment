@@ -63,8 +63,7 @@ public class ProjectAPI extends HttpServlet {
 		
 		Map paras = getParasMap(request);
 		
-		 String output = project.updateItem(paras.get("ProjectId").toString(),
-				 							paras.get("ProjectCode").toString(),
+		 String output = project.updateItem(paras.get("ProjectCode").toString(),
 											paras.get("ProjectName").toString(),
 											paras.get("Description").toString(),
 											paras.get("Budget").toString(),
@@ -106,7 +105,7 @@ public class ProjectAPI extends HttpServlet {
 		
 		Map paras = getParasMap(request);
 		
-		String output = project.deleteItem(paras.get("ProjectId").toString());
+		String output = project.deleteItem(paras.get("ProjectCode").toString());
 		response.getWriter().write(output);
 	}
 

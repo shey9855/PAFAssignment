@@ -14,7 +14,7 @@ $(document).on("click", "#btnSave", function(event)
  		return;
  	}
 // If valid------------------------
-	var type = ($("#ProjectId").val() == "") ? "POST" : "PUT";
+	var type = ($("#ProjectCode").val() == "") ? "POST" : "PUT";
  	$.ajax(
  	{
 	 url : "ProjectAPI",
@@ -53,13 +53,13 @@ function onItemSaveComplete(response, status)
 			 $("#alertError").show();
  	} 
 
-			 $("#ProjectId").val("");
+			 $("#ProjectCode").val("");
 			 $("#formItem")[0].reset();
 	}
 
 $(document).on("click", ".btnUpdate", function(event)
 {
-		$("#ProjectId").val($(this).data("ProjectId"));
+		
 		$("#ProjectCode").val($(this).closest("tr").find('td:eq(0)').text());
 		$("#ProjectName").val($(this).closest("tr").find('td:eq(1)').text());
 		$("#Description").val($(this).closest("tr").find('td:eq(2)').text());

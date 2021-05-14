@@ -172,7 +172,7 @@ public class Project {
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
 				 
 				 // binding values
-				 preparedStmt.setInt(1, Integer.parseInt(ProjectCode));
+				 preparedStmt.setString(0, (ProjectCode));
 				 
 				 // execute the statement
 				 preparedStmt.execute();

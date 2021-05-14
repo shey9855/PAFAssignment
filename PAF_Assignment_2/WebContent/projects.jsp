@@ -7,6 +7,10 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="Views/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 <script src="Components/jquery-3.2.1.min.js"></script>
 <script src="Components/main.js"></script>
 </head>
@@ -38,19 +42,22 @@
 	 			<input id="Category" name="Category" type="text"
 				 class="form-control form-control-sm">
 				 
-				<br><br> 
+				<br>
 				 
 	 			<input id="btnSave" name="btnSave" type="button" value="Save"
 	 			class="btn btn-primary">
+	 			<br>
 	 			
-	 			
-			</form>
-			
-			<div id="alertSuccess" class="alert alert-success"></div>
+	 			<div id="alertSuccess" class="alert alert-success"></div>
 			<div id="alertError" class="alert alert-danger"></div>
 			<br>
 			
 			<div id="divItemsGrid">
+	 			
+	 			
+			</form>
+			
+			
  <%
  		Project itemObj = new Project();
  		out.print(itemObj.readItems());

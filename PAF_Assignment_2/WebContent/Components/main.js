@@ -107,3 +107,31 @@ function onItemDeleteComplete(response, status)
 		 $("#alertError").show();
  	}
 }
+
+function validateItemForm() 
+{ 
+// CODE
+	if ($("#ProjectCode").val().trim() == "") 
+ 	{ 
+ 		return "Insert Project Code."; 
+ 	} 
+// NAME
+	if ($("#ProjectName").val().trim() == "") 
+ 	{ 
+ 		return "Insert Project Name."; 
+ 	} 
+// PRICE-------------------------------
+	if ($("#Description").val().trim() == "") 
+ 	{ 
+ 		return "Enter small description"; 
+ 	} 
+	if ($("#Budget").val().trim() == "") 
+ 	{ 
+ 		return "Insert the budget."; 
+ 	} 
+	if ($("#Category").val().trim() == "") 
+ 	{ 
+ 		return "Insert the category."; 
+ 	} 
+return true; 
+}

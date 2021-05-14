@@ -4,12 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import com.google.gson.*;
-import com.google.gson.reflect.*;
-import org.jsoup.*;
-import org.jsoup.parser.*;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,11 +41,8 @@ public class ProjectAPI extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
 		
-		String output = project.insertItem(
-				request.getParameter("ProjectCode"),
+		String output = project.insertItem(request.getParameter("ProjectCode"),
 				request.getParameter("ProjectName"),
 				request.getParameter("Description"),
 				request.getParameter("Budget"),
@@ -66,9 +57,9 @@ public class ProjectAPI extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		Map<String, String> paras = getParasMap(request);
+		Map paras = getParasMap(request);
 		
-		 String output = project.updateItem(paras.get("ProjectId").toString(),
+		 String output = project.updateItem(paras.get("hidItemIDSave").toString(),
 				 							paras.get("ProjectCode").toString(),
 											paras.get("ProjectName").toString(),
 											paras.get("Description").toString(),
@@ -77,7 +68,22 @@ public class ProjectAPI extends HttpServlet {
 		response.getWriter().write(output);
 	}
 
-	private Map<String, String> getParasMap(HttpServletRequest request) {
+	
+
+
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		Map paras = getParasMap(request);
+		
+		String output = project.deleteItem(paras.get("Projectid").toString());
+		response.getWriter().write(output);
+	}
+	
+	private static Map getParasMap(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -101,18 +107,5 @@ public class ProjectAPI extends HttpServlet {
 		return map;
 	}
 
-
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		Map<String, String> paras = getParasMap(request);
-		
-		String output = project.deleteItem(paras.get("ProjectId").toString());
-		response.getWriter().write(output);
-	}
 
 }

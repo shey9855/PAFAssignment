@@ -1,3 +1,12 @@
+$(document).ready(function()
+{
+if ($("#alertSuccess").text().trim() == "")
+{
+$("#alertSuccess").hide();
+}
+$("#alertError").hide();
+});
+
 $(document).on("click", "#btnSave", function(event)
 {
 // Clear alerts---------------------
@@ -14,12 +23,12 @@ $(document).on("click", "#btnSave", function(event)
  		return;
  	}
 // If valid------------------------
-	var type = ($("#ProjectId").val() == "") ? "POST" : "PUT";
+	var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT";
  	$.ajax(
  	{
 	 url : "ProjectAPI",
 	 type : type,
-	 data : $("#formItem").serialize(),
+	 data : $("#formProject").serialize(),
 	 dataType : "text",
 	 complete : function(response, status)
 	 {
@@ -53,13 +62,13 @@ function onItemSaveComplete(response, status)
 			 $("#alertError").show();
  	} 
 
-			 $("#ProjectId").val("");
-			 $("#formItem")[0].reset();
+			 $("#hidItemIDSave").val("");
+			 $("#formProject")[0].reset();
 	}
 
 $(document).on("click", ".btnUpdate", function(event)
 {
-		$("#ProjectId").val($(this).data("ProjectId")); 
+		$("#hidItemIDSave").val($(this).data("projectid")); 
 		$("#ProjectCode").val($(this).closest("tr").find('td:eq(0)').text());
 		$("#ProjectName").val($(this).closest("tr").find('td:eq(1)').text());
 		$("#Description").val($(this).closest("tr").find('td:eq(2)').text());
@@ -73,7 +82,7 @@ $(document).on("click", ".btnRemove", function(event)
  		{
 			 url : "ProjectAPI",
 			 type : "DELETE",
-			 data : "ProjectId=" + $(this).data("ProjectId"),
+			 data : "Projectid=" + $(this).data("projectid"),
 			 dataType : "text",
 			 complete : function(response, status)
 			 {

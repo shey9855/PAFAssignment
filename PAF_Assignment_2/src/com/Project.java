@@ -60,8 +60,8 @@ public class Project {
 	
 						// Add into the html table
 						 
-						 //output += "<tr><td>" + ProjectId + "</td>";
-						 output += "<td>" + ProjectCode + "</td>";
+						
+						 output += "<tr><td>" + ProjectCode + "</td>";
 						 output += "<td>" + ProjectName + "</td>";
 						 output += "<td>" + Description + "</td>";
 						 output += "<td>" + Budget + "</td>";
@@ -69,14 +69,14 @@ public class Project {
 						 
 					    // buttons
 					     output += "<td><input name='btnUpdate' type='button' value='Update' "
-						 + "class='btnUpdate btn btn-secondary' data-itemid='" + ProjectId + "'></td>"
+						 + "class='btnUpdate btn btn-secondary' data-projectid='" + ProjectId + "'></td>"
 						 + "<td><input name='btnRemove' type='button' value='Remove' "
-						 + "class='btnRemove btn btn-danger' data-itemid='" + ProjectId + "'></td></tr>";
+						 + "class='btnRemove btn btn-danger' data-projectid='" + ProjectId + "'></td></tr>";
 					  }
 					  con.close();
 					 // Complete the html table
 					  
-					  output += "</table>";
+					  output += "</table></center>";
 					}
 			catch (Exception e)
 			{
@@ -96,17 +96,17 @@ public class Project {
 					 return "Error while connecting to the database for inserting.";
 				 }
 				 // create a prepared statement
-				 String query = " INSERT INTO projects(ProjectId,ProjectCode,ProjectName,Description,Budget,Category) VALUES (?, ?, ?, ?, ?, ?)";
+				 String query = " INSERT INTO projects(ProjectCode,ProjectName,Description,Budget,Category) VALUES (?, ?, ?, ?, ?)";
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
 				 // binding values
-				 preparedStmt.setInt(1, 0);
+				 //preparedStmt.setInt(1, 0);
 				 preparedStmt.setString(1, ProjectCode);
 				 preparedStmt.setString(2, ProjectName);
 				 preparedStmt.setString(3, Description);
 				 preparedStmt.setString(4, Budget);
 				 preparedStmt.setString(5, Category);
 				 // execute the statement
-				 preparedStmt.execute();
+				 preparedStmt.executeUpdate();
 				 
 				 con.close();
 				 
@@ -124,6 +124,13 @@ public class Project {
 	public String updateItem(String ProjectId,String ProjectCode, String ProjectName,String Description, String Budget, String Category)
 			 {
 			 	String output = "";
+			 	System.out.println(ProjectId);
+			 	System.out.println(ProjectCode);
+			 	System.out.println(ProjectName);
+			 	System.out.println(Description);
+			 	System.out.println(Budget);
+			 	System.out.println(Category);
+			 	
 			 	try
 			 	{
 			 			Connection con = connection();
@@ -133,8 +140,8 @@ public class Project {
 			 				return "Error while connecting to the database for updating.";
 			 			}
 			 // create a prepared statement
-			 			String query = "UPDATE projects SET ProjectCode= '"+ProjectCode+"', ProjectName='"+ProjectName+"', Description= '"+Description+"', Budget= '"+Budget+"', Category= '"+Category+"' WHERE ProjectId= '"+ProjectId+"'";
 			 			
+			 			String query = "UPDATE projects SET ProjectCode='"+ProjectCode+"',ProjectName='"+ProjectName+"',Description='"+Description+"',Budget='"+Budget+"',Category='"+Category+"' WHERE ProjectId='"+ProjectId+"' ";
 			 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			 // binding values
 			 			
@@ -143,13 +150,13 @@ public class Project {
 						 preparedStmt.setString(3, Description);
 						 preparedStmt.setString(4, Budget);
 						 preparedStmt.setString(5, Category);
-						  
+						 preparedStmt.setInt(6, Integer.parseInt(ProjectId));				  
 			
 			 // execute the statement
 						 preparedStmt.executeUpdate(query);
 						 con.close();
-						 String newItems = readItems();
-						 output = "{\"status\":\"success\", \"data\": \"" +newItems + "\"}";
+						 String newUpdate = readItems();
+						 output = "{\"status\":\"success\", \"data\": \"" +newUpdate + "\"}";
 						 }
 			 catch (Exception e)
 			 {
@@ -171,11 +178,11 @@ public class Project {
 	        }
 				 
 				 // create a prepared statement
-				 String query = "delete from projects where ProjectCode=?";
+				 String query = "delete from projects where ProjectId=?";
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
 				 
 				 // binding values
-				 preparedStmt.setString(1, (ProjectId));
+				 preparedStmt.setString(1, ProjectId);
 				 
 				 // execute the statement
 				 preparedStmt.execute();

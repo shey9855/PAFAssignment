@@ -1,6 +1,8 @@
 <%@page import="com.Project"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+
 <script src="Components/jquery-3.2.1.min.js"></script>
 <script src="Components/main.js"></script>
 </head>
@@ -27,7 +30,7 @@
 		<div class="container"><div class="row"><div class="col-6">
 			<h1>Project Management </h1>
 			
-			<form id="formItem" name="formItem">
+			<form id="formProject" name="formProject">
 			
 			
 	 			Project Code:
@@ -52,29 +55,29 @@
 				 
 				<br>
 				 
+				 <input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
+				 
 	 			<input id="btnSave" name="btnSave" type="button" value="Save"
 	 			class="btn btn-primary">
-	 			<input type="hidden" id="ProjectId" name="ProjectId" value="">
-	 			<br>
 	 			
-	 			<div id="alertSuccess" class="alert alert-success"></div>
+	 			<br>
+	 			 			
+			</form>
+			<div id="alertSuccess" class="alert alert-success"></div>
 			<div id="alertError" class="alert alert-danger"></div>
 			<br>
 			
-			<div id="divItemsGrid"></div>
-	 			
-	 			
-			</form>
+			<div id="divItemsGrid"> 
+				<%
+			 		Project itemObj = new Project();
+			 		out.print(itemObj.readItems());
+
+ 			%>
 			
-			
-			
- <%
- 		Project itemObj = new Project();
- 		out.print(itemObj.readItems());
- 		//out.print(itemObj.insertItem(ProjectCode, ProjectName, Description, Budget, Category));
- %>
+			</div>
+	 
 	</div>
-</div> </div> </div>
+</div> </div> 
 
 <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large"> 
 <div class="foot">
@@ -90,8 +93,6 @@
   
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>

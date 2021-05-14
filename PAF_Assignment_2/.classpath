@@ -8,13 +8,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/HP/Downloads/JAR Files/javax.servlet-3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/HP/Downloads/JAR Files/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/HP/Downloads/JAR Files/jstl-api-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/HP/Downloads/JAR Files/servlet-api.jar"/>
 	<classpathentry kind="lib" path="C:/Users/HP/Downloads/mysql-connector-java-8.0.23/mysql-connector-java-8.0.23.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
@@ -22,5 +19,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/HP/Downloads/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/HP/Documents/jar files/servlet-api.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

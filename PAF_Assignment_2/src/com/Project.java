@@ -38,7 +38,8 @@ public class Project {
 					}
 					
 					 // Prepare the html table to be displayed
-					 output = "<table border='1'><tr><th>Project Code</th>"
+					 output = "<center><table class= \"table\" style=\"width:1000px\"><thead class=\"thead-dark\">"
+					 		+ "<tr><th>Project Code</th>"
 					 + "<th>Project Name</th>"
 					 + "<th>Description</th><th>Budget</th>"
 					 + "<th>Category</th>"
@@ -50,15 +51,17 @@ public class Project {
 					 
 					 while (rs.next())
 					 {
-						 //String ProjectId = Integer.toString(rs.getInt("ProjectId"));
-						 String ProjectCode = Integer.toString(rs.getInt("ProjectCode"));
+						 String ProjectId = Integer.toString(rs.getInt("ProjectId"));
+						 String ProjectCode = rs.getString("ProjectCode");
 						 String ProjectName = rs.getString("ProjectName");
 						 String Description = rs.getString("Description");
 						 String Budget = rs.getString("Budget"); 
 						 String Category = rs.getString("Category");
 	
 						// Add into the html table
-						 output += "<tr><td>" + ProjectCode + "</td>";					 
+						 
+						 //output += "<tr><td>" + ProjectId + "</td>";
+						 output += "<td>" + ProjectCode + "</td>";
 						 output += "<td>" + ProjectName + "</td>";
 						 output += "<td>" + Description + "</td>";
 						 output += "<td>" + Budget + "</td>";
@@ -66,9 +69,9 @@ public class Project {
 						 
 					    // buttons
 					     output += "<td><input name='btnUpdate' type='button' value='Update' "
-						 + "class='btnUpdate btn btn-secondary' data-itemid='" + ProjectCode + "'></td>"
+						 + "class='btnUpdate btn btn-secondary' data-itemid='" + ProjectId + "'></td>"
 						 + "<td><input name='btnRemove' type='button' value='Remove' "
-						 + "class='btnRemove btn btn-danger' data-itemid='" + ProjectCode + "'></td></tr>";
+						 + "class='btnRemove btn btn-danger' data-itemid='" + ProjectId + "'></td></tr>";
 					  }
 					  con.close();
 					 // Complete the html table
@@ -93,10 +96,10 @@ public class Project {
 					 return "Error while connecting to the database for inserting.";
 				 }
 				 // create a prepared statement
-				 String query = " insert into projects(ProjectCode,ProjectName,Description,Budget,Category) values (?, ?, ?, ?,?)";
+				 String query = " INSERT INTO projects(ProjectId,ProjectCode,ProjectName,Description,Budget,Category) VALUES (?, ?, ?, ?, ?, ?)";
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
 				 // binding values
-				 //preparedStmt.setInt(1, 0);
+				 preparedStmt.setInt(1, 0);
 				 preparedStmt.setString(1, ProjectCode);
 				 preparedStmt.setString(2, ProjectName);
 				 preparedStmt.setString(3, Description);
@@ -118,7 +121,7 @@ public class Project {
 			 return output;
 	} 
 	
-	public String updateItem(String ProjectCode, String ProjectName,String Description, String Budget, String Category)
+	public String updateItem(String ProjectId,String ProjectCode, String ProjectName,String Description, String Budget, String Category)
 			 {
 			 	String output = "";
 			 	try
@@ -130,12 +133,12 @@ public class Project {
 			 				return "Error while connecting to the database for updating.";
 			 			}
 			 // create a prepared statement
-			 			String query = "UPDATE projects SET ProjectCode=?,ProjectName=?,Description=?,Budget=?, Category=?WHERE ProjectId=?";
+			 			String query = "UPDATE projects SET ProjectCode= '"+ProjectCode+"', ProjectName='"+ProjectName+"', Description= '"+Description+"', Budget= '"+Budget+"', Category= '"+Category+"' WHERE ProjectId= '"+ProjectId+"'";
 			 			
 			 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			 // binding values
-			 			 preparedStmt.setString(1, (ProjectCode));	
-						 
+			 			
+			 			 preparedStmt.setString(1, ProjectCode);							 
 						 preparedStmt.setString(2, ProjectName);
 						 preparedStmt.setString(3, Description);
 						 preparedStmt.setString(4, Budget);
@@ -143,7 +146,7 @@ public class Project {
 						  
 			
 			 // execute the statement
-						 preparedStmt.execute();
+						 preparedStmt.executeUpdate(query);
 						 con.close();
 						 String newItems = readItems();
 						 output = "{\"status\":\"success\", \"data\": \"" +newItems + "\"}";
@@ -156,7 +159,7 @@ public class Project {
 			 return output;
 		}
 	
-	public String deleteItem(String ProjectCode)
+	public String deleteItem(String ProjectId)
 	{
 			String output = "";
 			try
@@ -172,7 +175,7 @@ public class Project {
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
 				 
 				 // binding values
-				 preparedStmt.setString(0, (ProjectCode));
+				 preparedStmt.setString(1, (ProjectId));
 				 
 				 // execute the statement
 				 preparedStmt.execute();
